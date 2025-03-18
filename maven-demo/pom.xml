@@ -7,7 +7,7 @@
   <version>1.0-SNAPSHOT</version>
   <name>maven-demo</name>
   <url>http://maven.apache.org</url>
-  <dependencies>
+
     <build>
       <plugins>
       <plugin>
@@ -20,7 +20,9 @@
       </configuration>
       </plugin>
       </plugins>
-      </build>
+    </build>
+  
+  <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

@@ -2,29 +2,28 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+        stage("Cleaning workspace") {
             steps {
-                git 'https://github.com/enesmat/maven-demo.git'
+                sh "rm -rf ./*"
             }
         }
-
-        stage('Build') {
+        stage('Github Code') {
             steps {
-                script {
-                    sh 'mvn clean package'
-                }
+                git 'https://github.com/enesmat/maven-demo'
             }
         }
-
-        stage('Zip JAR') {
+        stage('Build Project') {
             steps {
-                script {
-                    sh '7z a maven-demo.zip target/maven-demo-1.0-SNAPSHOT.jar'
-                }
+                sh '''cd ./maven-demo
+                mvn clean package'''
             }
         }
-
-        stage('Deploy') {
+        stage('Zip JAR File') {
+            steps {
+                sh '7z a maven-demo.7z ./maven-demo/target/*.jar'
+            }
+        }
+        stage('Deploy Message') {
             steps {
                 echo 'Jar file Deployed'
             }
