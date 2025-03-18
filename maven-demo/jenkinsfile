@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/enesmat/maven-demo.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    sh 'mvn clean package'
+                }
+            }
+        }
+
+        stage('Zip JAR') {
+            steps {
+                script {
+                    sh '7z a maven-demo.zip target/maven-demo-1.0-SNAPSHOT.jar'
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Jar file Deployed'
+            }
+        }
+    }
+}
